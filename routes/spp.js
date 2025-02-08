@@ -239,11 +239,11 @@ router.post("/", async (req, res) => {
   data.forEach(async (data) => {
     await prisma.detailSpp.create({
       data: {
-        material: data["material"],
-        spesifikasi: data["spesifikasi"],
+        material: data["material"].toUpperCase(),
+        spesifikasi: data["spesifikasi"].toUpperCase(),
         volume: parseInt(data["volume"]),
-        satuan: data["satuan"],
-        lokasi: data["lokasi"],
+        satuan: data["satuan"].toUpperCase(),
+        lokasi: data["lokasi"].toUpperCase(),
         dataSppId: dataSpp.id,
       },
     });
@@ -291,8 +291,7 @@ router.post(
         },
         data: {
           acc2Status: approvalStatus,
-          sppStatus:
-            approvalStatus == "NOT_APPROVED" ? "NOT_APPROVED" : "WAITING",
+          acc2At: new Date(),
         },
       });
 
@@ -304,8 +303,8 @@ router.post(
         },
         data: {
           acc1Status: approvalStatus,
-          sppStatus:
-            approvalStatus == "NOT_APPROVED" ? "NOT_APPROVED" : "WAITING",
+          acc1At: new Date(),
+          sppStatus: approvalStatus == "APPROVED" ? "APPROVED" : "NOT_APPROVED",
         },
       });
 
