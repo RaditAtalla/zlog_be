@@ -304,6 +304,32 @@ router.post("/", async (req, res) => {
   });
 
   data.forEach(async (d) => {
+    const material = await prisma.material.findFirst({
+      where: {
+        nama: d.material.toUpperCase(),
+        spesifikasi: d.spesifikasi.toUpperCase(),
+        satuan: d.satuan.toUpperCase(),
+      },
+    });
+
+    const updatedMaterialStock = await prisma.material.update({
+      where: {
+        id: material.id,
+      },
+      data: {
+        // TODO: update volume column in material table to an int
+        volume: (parseInt(material.volume) - parseInt(d.volumeOut)).toString(),
+      },
+    });
+
+    if (updatedMaterialStock.volume <= 0) {
+      await prisma.material.delete({
+        where: {
+          id: updatedMaterialStock.id,
+        },
+      });
+    }
+
     await prisma.detailGoodsIssue.create({
       data: {
         DataGoodsIssueId: dataGoodsIssue.id,
