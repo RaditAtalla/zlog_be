@@ -95,9 +95,9 @@ model DataSpp {
   createdByUserId Int
   createdByUser   User           @relation("sppCreatedByUser", fields: [createdByUserId], references: [id])
   acc2Status      ApprovalStatus @default(WAITING)
-  acc2At          DateTime
+  acc2At          DateTime?
   acc1Status      ApprovalStatus @default(WAITING)
-  acc1At          DateTime
+  acc1At          DateTime?
   sppStatus       ApprovalStatus @default(WAITING)
   detailSpp       DetailSpp[]
 }
