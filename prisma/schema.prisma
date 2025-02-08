@@ -95,7 +95,9 @@ model DataSpp {
   createdByUserId Int
   createdByUser   User           @relation("sppCreatedByUser", fields: [createdByUserId], references: [id])
   acc2Status      ApprovalStatus @default(WAITING)
+  acc2At          DateTime
   acc1Status      ApprovalStatus @default(WAITING)
+  acc1At          DateTime
   sppStatus       ApprovalStatus @default(WAITING)
   detailSpp       DetailSpp[]
 }
@@ -104,7 +106,7 @@ model Material {
   id          Int     @id @default(autoincrement())
   nama        String
   satuan      String
-  volume      String
+  volume      Int
   spesifikasi String
   projectId   Int
   project     Project @relation(fields: [projectId], references: [id])
