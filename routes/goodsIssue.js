@@ -317,8 +317,7 @@ router.post("/", async (req, res) => {
         id: material.id,
       },
       data: {
-        // TODO: update volume column in material table to an int
-        volume: (parseInt(material.volume) - parseInt(d.volumeOut)).toString(),
+        volume: parseInt(material.volume) - parseInt(d.volumeOut),
       },
     });
 
@@ -358,7 +357,7 @@ router.post(
       data: {
         projectId,
         kode,
-        namaPekerja,
+        namaPekerja: namaPekerja.toUpperCase(),
         createdByUserId: id,
       },
     });
@@ -367,11 +366,11 @@ router.post(
       await prisma.detailBppb.create({
         data: {
           bppbId: dataBppb.id,
-          material: data["material"],
-          spesifikasi: data["spesifikasi"],
+          material: data["material"].toUpperCase(),
+          spesifikasi: data["spesifikasi"].toUpperCase(),
           volume: parseInt(data["volume"]),
-          satuan: data["satuan"],
-          lokasi: data["lokasi"],
+          satuan: data["satuan"].toUpperCase(),
+          lokasi: data["lokasi"].toUpperCase(),
         },
       });
     });

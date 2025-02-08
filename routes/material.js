@@ -35,10 +35,7 @@ router.post("/", async (req, res) => {
           id: existingMaterial.id,
         },
         data: {
-          // TODO: update volume column in material table to an int
-          volume: (
-            parseInt(d.volume) + parseInt(existingMaterial.volume)
-          ).toString(),
+          volume: parseInt(d.volume) + parseInt(existingMaterial.volume),
         },
       });
 
@@ -48,7 +45,7 @@ router.post("/", async (req, res) => {
         data: {
           nama: d.material.toUpperCase(),
           spesifikasi: d.spesifikasi.toUpperCase(),
-          volume: d.volume,
+          volume: parseInt(d.volume),
           satuan: d.satuan.toUpperCase(),
           projectId,
         },

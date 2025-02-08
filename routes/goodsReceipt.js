@@ -152,11 +152,11 @@ router.post(
     if (jabatan == "POP" || jabatan == "LOGISTIK" || jabatan == "PENBAR") {
       const goodsReceipt = await prisma.goodsReceipt.create({
         data: {
-          noMaterialMasuk,
-          noSuratJalan,
+          noMaterialMasuk: noMaterialMasuk.toUpperCase(),
+          noSuratJalan: noSuratJalan.toUpperCase(),
           tanggalMasuk,
-          vendor,
-          namaPengantar,
+          vendor: vendor.toUpperCase(),
+          namaPengantar: namaPengantar.toUpperCase(),
           projectId,
         },
       });
@@ -165,10 +165,10 @@ router.post(
         await prisma.goodsReceiptDetail.create({
           data: {
             goodsReceiptId: goodsReceipt.id,
-            material: data["material"],
-            spesifikasi: data["spesifikasi"],
+            material: data["material"].toUpperCase(),
+            spesifikasi: data["spesifikasi"].toUpperCase(),
             volume: parseInt(data["volume"]),
-            satuan: data["satuan"],
+            satuan: data["satuan"].toUpperCase(),
           },
         });
       });
