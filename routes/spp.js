@@ -100,7 +100,7 @@ router.get("/download/:sppId", async (req, res) => {
       return filename.replace(/[\/\\]/g, "_");
     }
 
-    const pdfPath = path.resolve(process.cwd(), "public/formSPP.pdf");
+    const pdfPath = path.resolve(process.cwd(), "public/formSpp.pdf");
     const pdfBytes = fs.readFileSync(pdfPath);
 
     const pdfDoc = await PDFDocument.load(pdfBytes);
